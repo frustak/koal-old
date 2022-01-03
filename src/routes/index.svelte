@@ -2,7 +2,7 @@
 	import Tasks from '$lib/components/tasks.svelte';
 </script>
 
-<main class="container">
+<main>
 	<h1 class="text-9xl font-black leading-loose">Coal</h1>
 
 	<Tasks />
