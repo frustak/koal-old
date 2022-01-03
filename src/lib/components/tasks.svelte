@@ -30,7 +30,7 @@
 		{#each tasks as task, index}
 			<div>
 				<button
-					class="w-full text-left bg-stone-50 focus:bg-stone-100 hover:bg-stone-100 outline-none rounded px-2"
+					class="w-full text-left bg-stone-100 focus:bg-stone-200 hover:bg-stone-200 outline-none rounded px-2"
 					on:click={() => removeTask(index)}>{task}</button
 				>
 			</div>
@@ -40,7 +40,7 @@
 	<form on:submit|preventDefault={addTask}>
 		<input
 			type="text"
-			class="focus:border-stone-500 border-0 border-b focus:ring-0 focus:bg-stone-50 rounded-t w-full"
+			class="focus:border-stone-500 border-0 border-b focus:ring-0 focus:bg-stone-100 rounded-t w-full bg-stone-50"
 			bind:value={newTask}
 		/>
 	</form>
