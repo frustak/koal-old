@@ -30,7 +30,7 @@
 		{#each tasks as task, index}
 			<div>
 				<button
-					class="w-full text-left bg-stone-100 focus:bg-stone-200 hover:bg-stone-200 outline-none rounded px-2"
+					class="w-full text-left border-2 border-stone-500 focus:bg-stone-200 hover:bg-stone-200 outline-none rounded px-2"
 					on:click={() => removeTask(index)}>{task}</button
 				>
 			</div>
