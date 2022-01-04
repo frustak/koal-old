@@ -1,9 +1,15 @@
 <script>
 	import Tasks from '$lib/components/tasks.svelte';
+	import Timer from '$lib/components/timer.svelte';
 </script>
 
 <main>
-	<h1 class="text-9xl font-black leading-loose">Coal</h1>
-
-	<Tasks />
+	<div class="grid grid-cols-4 gap-x-16">
+		<div>
+			<Timer />
+		</div>
+		<div class="col-span-3">
+			<Tasks />
+		</div>
+	</div>
 </main>

@@ -5,7 +5,8 @@ const config = {
 
 	theme: {
 		fontFamily: {
-			sans: ['Quicksand', 'sans-serif']
+			sans: ['Quicksand', 'sans-serif'],
+			display: ['MedievalSharp', 'cursive']
 		},
 		container: {
 			center: true,

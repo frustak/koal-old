@@ -18,8 +18,10 @@
 
 <div class:dark={theme === 'dark'}>
 	<div class="dark:bg-stone-700 dark:text-stone-50 bg-stone-50 text-stone-700 min-h-screen">
-		<div class="container">
-			<div class="flex justify-end p-4 text-lg">
+		<div class="container space-y-20">
+			<div class="flex justify-between p-4 text-lg">
+				<h1 class="font-black text-center font-display">Coal</h1>
+
 				{#if theme === 'dark'}
 					<i
 						class="bi bi-moon-stars-fill cursor-pointer text-stone-200 hover:text-stone-100"
@@ -32,6 +34,7 @@
 					/>
 				{/if}
 			</div>
+
 			<slot />
 		</div>
 	</div>
