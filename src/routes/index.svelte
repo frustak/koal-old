@@ -4,11 +4,11 @@
 </script>
 
 <main>
-	<div class="grid grid-cols-4 gap-x-16">
+	<div class="flex flex-col xl:grid xl:grid-cols-3 gap-16">
 		<div>
 			<Timer />
 		</div>
-		<div class="col-span-3">
+		<div class="col-span-2">
 			<Tasks />
 		</div>
 	</div>

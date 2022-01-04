@@ -50,7 +50,9 @@
 </script>
 
 <section class="gap-y-8 flex flex-col items-center p-1">
-	<p class="text-9xl font-thin">{getTimerDisplayText(timer)}</p>
+	<p class="text-9xl font-thin items-stretch text-center font-mono">
+		{getTimerDisplayText(timer)}
+	</p>
 
 	<div class="flex self-stretch gap-x-6">
 		{#if timerState === TimerState.NotStarted}

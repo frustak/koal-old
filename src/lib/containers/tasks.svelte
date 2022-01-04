@@ -6,7 +6,7 @@
 
 	onMount(() => {
 		const saved = localStorage.getItem('tasks');
-		if (saved) JSON.parse(saved);
+		if (saved) tasks = JSON.parse(saved);
 	});
 
 	function addTask() {
