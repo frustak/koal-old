@@ -50,7 +50,7 @@
 </script>
 
 <section class="flex flex-col items-center p-1 gap-y-8">
-	<p class="items-stretch font-mono font-thin text-center text-9xl">
+	<p class="items-stretch font-mono font-thin text-center text-8xl md:text-9xl">
 		{getTimerDisplayText(timer)}
 	</p>
 
