@@ -1,7 +1,10 @@
 <button
-	class="bg-stone-700 px-2 py-1 relative text-stone-50 rounded flex-grow flex-shrink-0 font-semibold hover:bg-stone-800 hover:text-stone-100"
+	class="bg-stone-700 px-2 py-1 relative text-stone-100 rounded flex-grow flex-shrink-0
+     font-semibold hover:bg-stone-800 hover:text-stone-200 dark:bg-stone-100 dark:text-stone-700 dark:hover:text-stone-800 dark:hover:bg-stone-200"
 	on:click
 >
-	<div class="absolute w-full h-full border-t border-l border-stone-700 -top-1 -left-1 rounded" />
+	<div
+		class="absolute w-full h-full border-t border-l border-stone-700 -top-1 -left-1 rounded dark:border-stone-100"
+	/>
 	<slot />
 </button>

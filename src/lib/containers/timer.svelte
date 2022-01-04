@@ -54,9 +54,11 @@
 		{getTimerDisplayText(timer)}
 	</p>
 
-	<div class="flex self-stretch gap-x-6">
+	<div class="grid grid-cols-2 self-stretch gap-x-6">
 		{#if timerState === TimerState.NotStarted}
-			<Button on:click={startTimer}>Start</Button>
+			<div class="col-span-2 flex">
+				<Button on:click={startTimer}>Start</Button>
+			</div>
 		{:else}
 			<Button on:click={resetTimer}>Reset</Button>
 			{#if timerState === TimerState.Paused}

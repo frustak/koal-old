@@ -41,7 +41,7 @@
 	<form on:submit|preventDefault={addTask}>
 		<input
 			type="text"
-			class="focus:border-stone-500 border-0 border-b focus:ring-0 focus:bg-stone-100 rounded-t w-full bg-stone-50"
+			class="focus:border-current border-stone-500 border-0 border-b focus:ring-0 focus:bg-stone-100 rounded-t w-full bg-inherit dark:border-stone-400 dark:focus:bg-stone-600"
 			bind:value={newTask}
 		/>
 	</form>
