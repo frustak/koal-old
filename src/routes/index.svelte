@@ -4,7 +4,7 @@
 </script>
 
 <main>
-	<div class="flex flex-col xl:grid xl:grid-cols-3 gap-16">
+	<div class="flex flex-col gap-16 xl:grid xl:grid-cols-3">
 		<div>
 			<Timer />
 		</div>

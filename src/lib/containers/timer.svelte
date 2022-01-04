@@ -49,14 +49,14 @@
 	}
 </script>
 
-<section class="gap-y-8 flex flex-col items-center p-1">
-	<p class="text-9xl font-thin items-stretch text-center font-mono">
+<section class="flex flex-col items-center p-1 gap-y-8">
+	<p class="items-stretch font-mono font-thin text-center text-9xl">
 		{getTimerDisplayText(timer)}
 	</p>
 
-	<div class="grid grid-cols-2 self-stretch gap-x-6">
+	<div class="grid self-stretch grid-cols-2 gap-x-6">
 		{#if timerState === TimerState.NotStarted}
-			<div class="col-span-2 flex">
+			<div class="flex col-span-2">
 				<Button on:click={startTimer}>Start</Button>
 			</div>
 		{:else}
