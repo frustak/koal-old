@@ -6,3 +6,8 @@ export enum Theme {
 }
 
 export const theme = writable<Theme>(Theme.Light);
+
+export function changeTheme(which: Theme): void {
+	theme.set(which);
+	localStorage.setItem('theme', which);
+}

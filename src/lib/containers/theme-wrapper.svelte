@@ -7,6 +7,7 @@
 		switch (savedTheme) {
 			case 'dark':
 				$theme = Theme.Dark;
+				break;
 			case 'light':
 			default:
 				$theme = Theme.Light;
