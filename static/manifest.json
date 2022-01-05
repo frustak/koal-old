@@ -1,0 +1,27 @@
+{
+	"background_color": "#fafaf9",
+	"categories": ["planning", "focus", "time management", "pomodoro"],
+	"short_name": "coal",
+	"name": "coal focus",
+	"description": "Coal focus and time management",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "logo.jpg",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#fafaf9",
+	"shortcuts": [
+		{
+			"name": "Coal",
+			"short_name": "Coal",
+			"description": "Coal focus and time management",
+			"url": "/",
+			"icons": [{ "src": "/icons/logo_192.png", "sizes": "192x192" }]
+		}
+	]
+}
