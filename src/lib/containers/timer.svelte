@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/button.svelte';
-	import { addSeconds, differenceInSeconds } from 'date-fns';
+	import { addSeconds,differenceInSeconds } from 'date-fns';
 	import _ from 'lodash';
 	import * as workerTimers from 'worker-timers';
 
@@ -32,6 +32,7 @@
 
 	function updateTimer() {
 		timer = differenceInSeconds(targetDate!, Date.now()) + 1;
+		if (timer <= 0) resetTimer();
 	}
 
 	function pauseTimer() {
