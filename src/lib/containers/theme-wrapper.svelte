@@ -14,6 +14,10 @@
 	});
 </script>
 
+<svelte:head>
+	<meta name="theme-color" content={$theme === Theme.Light ? '#fafaf9' : '#44403c'} />
+</svelte:head>
+
 <div class:dark={$theme === Theme.Dark}>
 	<slot />
 </div>
