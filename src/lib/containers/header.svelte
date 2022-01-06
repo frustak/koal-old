@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex justify-between p-4 text-lg">
-	<h1 class="font-black text-center font-display">Coal</h1>
+	<h1 class="font-black text-center font-display">Koal</h1>
 
 	{#if $theme === 'dark'}
 		<button class="text-stone-200 hover:text-stone-100" on:click={() => ($theme = Theme.Light)}>
