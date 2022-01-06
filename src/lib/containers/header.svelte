@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { changeTheme, Theme, theme } from '$lib/stores/theme';
+	import { Theme, theme } from '$lib/stores/theme';
 </script>
 
 <div class="flex justify-between p-4 text-lg">
 	<h1 class="font-black text-center font-display">Coal</h1>
 
 	{#if $theme === 'dark'}
-		<button on:click={() => changeTheme(Theme.Light)}>
-			<i class="cursor-pointer bi bi-moon-stars-fill text-stone-200 hover:text-stone-100" />
+		<button class="text-stone-200 hover:text-stone-100" on:click={() => ($theme = Theme.Light)}>
+			<i class="bi bi-moon-stars-fill" />
 		</button>
 	{:else}
-		<button on:click={() => changeTheme(Theme.Dark)}>
-			<i class="cursor-pointer bi bi-sun-fill text-stone-600 hover:text-stone-700" />
+		<button class="text-stone-600 hover:text-stone-700" on:click={() => ($theme = Theme.Dark)}>
+			<i class="bi bi-sun-fill" />
 		</button>
 	{/if}
 </div>
