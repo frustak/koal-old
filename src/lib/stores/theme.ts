@@ -1,13 +1,8 @@
-import { writable } from 'svelte/store';
+import { persist } from './persist';
 
 export enum Theme {
 	Light = 'light',
 	Dark = 'dark'
 }
 
-export const theme = writable<Theme>(Theme.Light);
-
-export function changeTheme(which: Theme): void {
-	theme.set(which);
-	localStorage.setItem('theme', which);
-}
+export const theme = persist<Theme>('theme', Theme.Light);
