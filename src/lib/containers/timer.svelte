@@ -24,13 +24,14 @@
 	});
 
 	onMount(() => {
+		if (Notification.permission !== 'denied') Notification.requestPermission();
 		if ($timerState === TimerState.Running) {
 			updateTimer();
 			startTimer();
 		}
 	});
 
-	$: if (browser && $timer <= 0) resetTimer();
+	$: if (browser && $timer <= 0) completeTimer();
 	$: if (browser && $timerState !== TimerState.Running) workerTimers.clearInterval(intervalId);
 
 	function startTimer() {
@@ -60,6 +61,11 @@
 		const secondsPadded = _.padStart(secondsStr, 2, '0');
 		const text = `${minutesPadded}:${secondsPadded}`;
 		return text;
+	}
+
+	function completeTimer() {
+		new Notification('Times up!');
+		resetTimer();
 	}
 </script>
 
