@@ -1,40 +1,27 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { persist } from '$lib/stores/persist';
 
-	let tasks: string[] = [];
+	const tasks = persist<string[]>('tasks', []);
 	let newTask = '';
-
-	onMount(() => {
-		const saved = localStorage.getItem('tasks');
-		if (saved) tasks = JSON.parse(saved);
-	});
 
 	function addTask() {
 		if (!newTask) return;
-		tasks = [...tasks, newTask];
+		$tasks = [...$tasks, newTask];
 		newTask = '';
-		saveTasksToStorage();
 	}
 
 	function removeTask(index: number) {
-		tasks = tasks.filter((_, i) => i !== index);
-		saveTasksToStorage();
-	}
-
-	function saveTasksToStorage() {
-		localStorage.setItem('tasks', JSON.stringify(tasks));
+		$tasks = $tasks.filter((_, i) => i !== index);
 	}
 </script>
 
 <section class="space-y-4">
 	<div class="space-y-3 leading-10">
-		{#each tasks as task, index}
-			<div>
-				<button
-					class="w-full px-2 text-left border-2 rounded outline-none border-stone-500 focus:bg-stone-200 hover:bg-stone-200 dark:focus:bg-stone-600 dark:hover:bg-stone-600"
-					on:click={() => removeTask(index)}>{task}</button
-				>
-			</div>
+		{#each $tasks as task, index}
+			<button
+				class="w-full px-2 text-left border-2 rounded outline-none border-stone-500 focus:bg-stone-200 hover:bg-stone-200 dark:focus:bg-stone-600 dark:hover:bg-stone-600"
+				on:click={() => removeTask(index)}>{task}</button
+			>
 		{/each}
 	</div>
 
