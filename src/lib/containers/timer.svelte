@@ -3,6 +3,7 @@
 	import Button from '$lib/components/button.svelte';
 	import { persist } from '$lib/stores/persist';
 	import { addSeconds, differenceInSeconds } from 'date-fns';
+	import { Howl } from 'howler';
 	import _ from 'lodash';
 	import { onMount } from 'svelte';
 	import * as workerTimers from 'worker-timers';
@@ -22,6 +23,7 @@
 		parse: (str) => new Date(Number.parseInt(str)) ?? null,
 		stringify: (date) => `${date ? +date : null}`
 	});
+	let sound: Howl;
 
 	onMount(() => {
 		if (Notification.permission !== 'denied') Notification.requestPermission();
@@ -29,6 +31,10 @@
 			updateTimer();
 			startTimer();
 		}
+
+		sound = new Howl({
+			src: ['alarm.wav']
+		});
 	});
 
 	$: if (browser && $timer <= 0) completeTimer();
@@ -66,6 +72,7 @@
 	function completeTimer() {
 		new Notification('Times up!');
 		resetTimer();
+		sound.play();
 	}
 </script>
 
