@@ -1,15 +1,15 @@
 <script lang="ts">
 	import Header from '$lib/containers/header.svelte';
-	import { Theme, theme } from '$lib/stores/theme';
+	import { getThemeBg, theme } from '$lib/stores/theme';
 	import 'bootstrap-icons/font/bootstrap-icons.css';
 	import '../app.css';
 </script>
 
 <svelte:head>
-	<meta name="theme-color" content={$theme === Theme.Light ? '#fafaf9' : '#44403c'} />
+	<meta name="theme-color" content={getThemeBg($theme)} />
 </svelte:head>
 
-<div class:dark={$theme === Theme.Dark}>
+<div class={$theme}>
 	<div class="min-h-screen bg-background text-primary">
 		<div class="container space-y-20">
 			<Header />
