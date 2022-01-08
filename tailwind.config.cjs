@@ -61,6 +61,26 @@ const config = {
 							background: '#10002b'
 						}
 					}
+				},
+				{
+					name: 'blue',
+					selectors: ['.blue'],
+					theme: {
+						colors: {
+							primary: '#1d3557',
+							background: '#a8dadc'
+						}
+					}
+				},
+				{
+					name: 'green',
+					selectors: ['.green'],
+					theme: {
+						colors: {
+							primary: '#132a13',
+							background: '#ecf39e'
+						}
+					}
 				}
 			]
 		})
