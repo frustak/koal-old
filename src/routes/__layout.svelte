@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class:dark={$theme === Theme.Dark}>
-	<div class="min-h-screen dark:bg-stone-700 dark:text-stone-50 bg-stone-50 text-stone-700">
+	<div class="min-h-screen bg-background text-primary">
 		<div class="container space-y-20">
 			<Header />
 
