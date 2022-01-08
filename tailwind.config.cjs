@@ -51,6 +51,16 @@ const config = {
 							background: '#282828'
 						}
 					}
+				},
+				{
+					name: 'void',
+					selectors: ['.void'],
+					theme: {
+						colors: {
+							primary: '#e0aaff',
+							background: '#10002b'
+						}
+					}
 				}
 			]
 		})
