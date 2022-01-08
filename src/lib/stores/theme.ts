@@ -35,7 +35,7 @@ export function getThemeBg(theme: Theme): string {
 		case Theme.Gruvbox:
 			return '#282828';
 		case Theme.Void:
-			return '#240046';
+			return '#10002b';
 		default:
 			return 'white';
 	}
