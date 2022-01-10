@@ -26,10 +26,6 @@
 	</div>
 
 	<form on:submit|preventDefault={addTask}>
-		<input
-			type="text"
-			class="w-full border-0 border-b rounded-t focus:border-current border-primary/75 focus:ring-0 focus:bg-primary/5 bg-inherit"
-			bind:value={newTask}
-		/>
+		<input type="text" class="input" bind:value={newTask} />
 	</form>
 </section>

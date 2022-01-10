@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-	import Button from '$lib/components/button.svelte';
 	import { persist } from '$lib/stores/persist';
 	import { addSeconds, differenceInSeconds } from 'date-fns';
 	import { Howl } from 'howler';
@@ -84,14 +83,14 @@
 	<div class="grid self-stretch grid-cols-2 gap-x-6">
 		{#if $timerState === TimerState.NotStarted}
 			<div class="flex col-span-2">
-				<Button on:click={startTimer}>Start</Button>
+				<button class="button" on:click={startTimer}>Start</button>
 			</div>
 		{:else}
-			<Button on:click={resetTimer}>Reset</Button>
+			<button class="button" on:click={resetTimer}>Reset</button>
 			{#if $timerState === TimerState.Paused}
-				<Button on:click={startTimer}>Resume</Button>
+				<button class="button" on:click={startTimer}>Resume</button>
 			{:else}
-				<Button on:click={pauseTimer}>Pause</Button>
+				<button class="button" on:click={pauseTimer}>Pause</button>
 			{/if}
 		{/if}
 	</div>
