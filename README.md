@@ -1,6 +1,14 @@
-# Coal
-
+# Koal
 Planning, Focus, Time management
+
+## Screenshots
+![image](https://user-images.githubusercontent.com/47036679/148787325-801e92d7-024c-4d39-afc6-23d68783cdf6.png)
+
+## Features
+- Task management
+- Timer
+- Multiple themes
+- And many more to add in future
 
 ## Developing
 
