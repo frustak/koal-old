@@ -4,3 +4,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.label {
+		@apply text-sm;
+	}
+
+	.input {
+		@apply w-full border-0 border-b rounded-t focus:border-current border-primary/75 focus:ring-0 focus:bg-primary/5 bg-inherit placeholder:text-primary/25;
+	}
+
+	.button {
+		@apply relative flex-grow flex-shrink-0 px-2 py-2 font-semibold rounded bg-primary/95 text-background/95 hover:bg-primary hover:text-background focus:bg-primary focus:text-background;
+	}
+
+	.button::before {
+		content: '';
+		@apply absolute w-full h-full border-t border-l rounded border-primary -top-1 -left-1;
+	}
+
+	.link {
+		@apply underline underline-offset-8 text-primary/90 hover:text-primary;
+	}
+}
