@@ -11,7 +11,7 @@
 </script>
 
 <form
-	class="flex flex-col gap-y-10 bg-primary/5 py-12 px-16 rounded-2xl"
+	class="flex flex-col gap-y-10 bg-primary/5 py-12 px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14 2xl:px-16 rounded-2xl"
 	on:submit|preventDefault={() => onSubmit({ email, password })}
 >
 	<label class="label">
