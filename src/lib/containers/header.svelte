@@ -3,9 +3,15 @@
 </script>
 
 <div class="flex justify-between p-4 text-lg">
-	<h1 class="font-black text-center font-display">Koal</h1>
+	<a class="font-black text-center font-display text-primary/95 hover:text-primary" href="/">Koal</a
+	>
 
-	<button class="text-primary/95 hover:text-primary" on:click={changeTheme}>
-		<i class="bi bi-segmented-nav" />
-	</button>
+	<div class="space-x-6">
+		<button class="button-icon" on:click={changeTheme} title="theme">
+			<i class="bi bi-segmented-nav" />
+		</button>
+		<a class="button-icon" title="account" href="/sign-in">
+			<i class="bi bi-person-circle" />
+		</a>
+	</div>
 </div>

@@ -23,6 +23,10 @@
 		@apply absolute w-full h-full border-t border-l rounded border-primary -top-1 -left-1;
 	}
 
+	.button-icon {
+		@apply text-primary/95 hover:text-primary;
+	}
+
 	.link {
 		@apply underline underline-offset-8 text-primary/90 hover:text-primary;
 	}
