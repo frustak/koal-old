@@ -3,8 +3,11 @@
 </script>
 
 <script lang="ts">
+	import Button from '$lib/components/button.svelte';
+
 	export let submitText: string;
 	export let onSubmit: OnSubmitAuth;
+	export let isSubmitting: boolean;
 
 	let email: string;
 	let password: string;
@@ -30,5 +33,5 @@
 		/>
 	</label>
 
-	<button class="button" type="submit">{submitText}</button>
+	<Button type="submit" isLoading={isSubmitting}>{submitText}</Button>
 </form>
