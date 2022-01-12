@@ -9,7 +9,7 @@
 
 <section class="max-w-md mx-auto flex flex-col gap-y-10">
 	<h2 class="font-bold text-3xl">{title}</h2>
-	<AuthForm submitText="Sign in" {onSubmit} {isSubmitting} />
+	<AuthForm submitText={title} {onSubmit} {isSubmitting} />
 
 	<a href={link.to} class="link self-end">{link.label}</a>
 </section>
