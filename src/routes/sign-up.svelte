@@ -1,10 +1,14 @@
-<script>
+<script lang="ts">
+	import service from '$lib/api/service';
 	import Auth from '$lib/containers/auth.svelte';
+	import { mutation } from '$lib/stores/mutation';
+
+	const { store: signUpStore, mutate: signUp } = mutation(service.signUp);
 </script>
 
 <Auth
 	title="Sign up"
-	onSubmit={console.log}
-	isSubmitting={true}
+	onSubmit={signUp}
+	isSubmitting={$signUpStore.isLoading}
 	link={{ label: 'Sign in', to: '/sign-in' }}
 />
