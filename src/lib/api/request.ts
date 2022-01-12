@@ -8,7 +8,8 @@ function addAuthorizationHeader(request: Request) {
 	if (token) request.headers.set('Authorization', `Bearer ${token}`);
 }
 
-export const api = ky.create({
+export const request = ky.create({
 	prefixUrl: API_URL,
-	hooks: { beforeRequest: [addAuthorizationHeader] }
+	hooks: { beforeRequest: [addAuthorizationHeader] },
+	mode: 'no-cors' // TODO: remove no corse after server fix
 });
