@@ -9,6 +9,6 @@
 <Auth
 	title="Sign up"
 	onSubmit={signUp}
-	isSubmitting={$signUpStore.isLoading}
+	isSubmitting={$signUpStore.isSubmitting}
 	link={{ label: 'Sign in', to: '/sign-in' }}
 />

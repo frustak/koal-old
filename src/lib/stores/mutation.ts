@@ -6,7 +6,7 @@ import { writable } from 'svelte/store';
 interface Query<D, E> {
 	data: D | null;
 	error: E | null;
-	isLoading: boolean;
+	isSubmitting: boolean;
 	isError: boolean;
 }
 
@@ -21,19 +21,19 @@ export function mutation<D, P, E = unknown>(callback: Mutate<D, P>): Mutation<D,
 	const store = writable<Query<D, E>>({
 		data: null,
 		error: null,
-		isLoading: false,
+		isSubmitting: false,
 		isError: false
 	});
 
 	const mutate = async (payload: P) => {
 		try {
-			store.update((prev) => ({ ...prev, isLoading: true }));
+			store.update((prev) => ({ ...prev, isSubmitting: true }));
 			const data = await callback(payload);
 			store.update((prev) => ({ ...prev, data, error: null, isError: false }));
 		} catch (error) {
 			store.update((prev) => ({ ...prev, data: null, error: error, isError: true }));
 		} finally {
-			store.update((prev) => ({ ...prev, isLoading: false }));
+			store.update((prev) => ({ ...prev, isSubmitting: false }));
 		}
 	};
 
