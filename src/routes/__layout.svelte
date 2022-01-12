@@ -11,7 +11,7 @@
 
 <div class={$theme}>
 	<div class="min-h-screen bg-background text-primary">
-		<div class="container space-y-20">
+		<div class="container space-y-20 py-4">
 			<Header />
 
 			<slot />
