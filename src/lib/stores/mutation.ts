@@ -1,0 +1,44 @@
+import type { Writable } from 'svelte/store';
+import { writable } from 'svelte/store';
+
+// D: Data, P: Payload, E: Error
+
+interface Query<D, E> {
+	data: D | null;
+	error: E | null;
+	isLoading: boolean;
+	isError: boolean;
+}
+
+type Mutate<D, P> = (payload: P) => Promise<D>;
+
+interface Mutation<D, P, E> {
+	store: Writable<Query<D, E>>;
+	mutate: (payload: P) => Promise<void>;
+}
+
+export function mutation<D, P, E = unknown>(callback: Mutate<D, P>): Mutation<D, P, E> {
+	const store = writable<Query<D, E>>({
+		data: null,
+		error: null,
+		isLoading: false,
+		isError: false
+	});
+
+	const mutate = async (payload: P) => {
+		try {
+			store.update((prev) => ({ ...prev, isLoading: true }));
+			const data = await callback(payload);
+			store.update((prev) => ({ ...prev, data, error: null, isError: false }));
+		} catch (error) {
+			store.update((prev) => ({ ...prev, data: null, error: error, isError: true }));
+		} finally {
+			store.update((prev) => ({ ...prev, isLoading: false }));
+		}
+	};
+
+	return {
+		store,
+		mutate
+	};
+}
