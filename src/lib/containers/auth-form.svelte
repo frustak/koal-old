@@ -19,7 +19,14 @@
 >
 	<label class="label">
 		Email
-		<input placeholder="example@mail.com" type="email" class="input" required bind:value={email} />
+		<input
+			placeholder="example@mail.com"
+			type="email"
+			name="email"
+			class="input"
+			required
+			bind:value={email}
+		/>
 	</label>
 	<label class="label">
 		Password
@@ -27,6 +34,7 @@
 			placeholder="at least 8 characters"
 			type="password"
 			class="input"
+			name="password"
 			required
 			minlength={8}
 			bind:value={password}
