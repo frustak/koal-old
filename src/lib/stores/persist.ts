@@ -1,4 +1,5 @@
 import { browser } from '$app/env';
+import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 
 interface Options<T> {
@@ -6,12 +7,11 @@ interface Options<T> {
 	stringify: (value: T) => string;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function persist<T>(
 	key: string,
 	value?: T | undefined,
 	options: Options<T> = { parse: JSON.parse, stringify: JSON.stringify }
-) {
+): Writable<T> {
 	let defaultValue = value;
 	if (browser) {
 		const saved = localStorage.getItem(key);
