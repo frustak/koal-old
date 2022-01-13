@@ -11,5 +11,4 @@ function addAuthorizationHeader(request: Request) {
 export const request = ky.create({
 	prefixUrl: API_URL,
 	hooks: { beforeRequest: [addAuthorizationHeader] },
-	mode: 'no-cors' // TODO: remove no corse after server fix
 });
