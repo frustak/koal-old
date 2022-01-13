@@ -10,7 +10,7 @@ interface Options<T> {
 export function persist<T>(
 	key: string,
 	value?: T | undefined,
-	options: Options<T> = { parse: JSON.parse, stringify: JSON.stringify }
+	options: Options<T> = { parse: JSON.parse, stringify: JSON.stringify },
 ): Writable<T> {
 	let defaultValue = value;
 	if (browser) {

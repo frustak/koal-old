@@ -19,5 +19,5 @@ async function signIn(values: AuthPayload): Promise<AuthData> {
 
 export default {
 	signUp,
-	signIn
+	signIn,
 };

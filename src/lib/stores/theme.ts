@@ -6,7 +6,7 @@ export enum Theme {
 	Gruvbox = 'gruvbox',
 	Void = 'void',
 	Blue = 'blue',
-	Green = 'green'
+	Green = 'green',
 }
 
 export const theme = persist<Theme>('theme', Theme.Light);

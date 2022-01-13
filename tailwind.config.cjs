@@ -9,13 +9,13 @@ const config = {
 		fontFamily: {
 			sans: ['Quicksand', 'sans-serif'],
 			display: ['MedievalSharp', 'cursive'],
-			mono: ['Cutive Mono', 'monospace']
+			mono: ['Cutive Mono', 'monospace'],
 		},
 		container: {
 			center: true,
-			padding: '1rem'
+			padding: '1rem',
 		},
-		extend: {}
+		extend: {},
 	},
 
 	plugins: [
@@ -28,9 +28,9 @@ const config = {
 					theme: {
 						colors: {
 							primary: '#44403c',
-							background: '#fafaf9'
-						}
-					}
+							background: '#fafaf9',
+						},
+					},
 				},
 				{
 					name: 'dark',
@@ -38,9 +38,9 @@ const config = {
 					theme: {
 						colors: {
 							primary: '#fafaf9',
-							background: '#44403c'
-						}
-					}
+							background: '#44403c',
+						},
+					},
 				},
 				{
 					name: 'gruvbox',
@@ -48,9 +48,9 @@ const config = {
 					theme: {
 						colors: {
 							primary: '#ebdbb2',
-							background: '#282828'
-						}
-					}
+							background: '#282828',
+						},
+					},
 				},
 				{
 					name: 'void',
@@ -58,9 +58,9 @@ const config = {
 					theme: {
 						colors: {
 							primary: '#e0aaff',
-							background: '#10002b'
-						}
-					}
+							background: '#10002b',
+						},
+					},
 				},
 				{
 					name: 'blue',
@@ -68,9 +68,9 @@ const config = {
 					theme: {
 						colors: {
 							primary: '#1d3557',
-							background: '#a8dadc'
-						}
-					}
+							background: '#a8dadc',
+						},
+					},
 				},
 				{
 					name: 'green',
@@ -78,13 +78,13 @@ const config = {
 					theme: {
 						colors: {
 							primary: '#132a13',
-							background: '#ecf39e'
-						}
-					}
-				}
-			]
-		})
-	]
+							background: '#ecf39e',
+						},
+					},
+				},
+			],
+		}),
+	],
 };
 
 module.exports = config;
