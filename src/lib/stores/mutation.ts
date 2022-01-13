@@ -17,7 +17,14 @@ interface Mutation<D, P, E> {
 	mutate: (payload: P) => Promise<void>;
 }
 
-export function mutation<D, P, E = unknown>(callback: Mutate<D, P>): Mutation<D, P, E> {
+interface Options<D> {
+	onSuccess: (data: D) => void;
+}
+
+export function mutation<D, P, E = unknown>(
+	callback: Mutate<D, P>,
+	options?: Options<D>
+): Mutation<D, P, E> {
 	const store = writable<Query<D, E>>({
 		data: null,
 		error: null,
@@ -29,6 +36,7 @@ export function mutation<D, P, E = unknown>(callback: Mutate<D, P>): Mutation<D,
 		try {
 			store.update((prev) => ({ ...prev, isSubmitting: true }));
 			const data = await callback(payload);
+			options?.onSuccess(data);
 			store.update((prev) => ({ ...prev, data, error: null, isError: false }));
 		} catch (error) {
 			store.update((prev) => ({ ...prev, data: null, error: error, isError: true }));
