@@ -5,22 +5,16 @@ export interface AuthPayload {
 	password: string;
 }
 
-async function signUp(values: AuthPayload): Promise<void> {
-	await request.post('auth/register', {
-		json: {
-			username: values.email,
-			password: values.password
-		}
-	});
+interface AuthData {
+	token: string;
 }
 
-async function signIn(values: AuthPayload): Promise<void> {
-	await request.post('auth/login', {
-		json: {
-			username: values.email,
-			password: values.password
-		}
-	});
+async function signUp(values: AuthPayload): Promise<AuthData> {
+	return await request.post('auth/register', { json: values }).json();
+}
+
+async function signIn(values: AuthPayload): Promise<AuthData> {
+	return await request.post('auth/login', { json: values }).json();
 }
 
 export default {
