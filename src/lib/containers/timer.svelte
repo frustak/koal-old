@@ -12,7 +12,7 @@
 	enum TimerState {
 		NotStarted = 'not-started',
 		Running = 'running',
-		Paused = 'paused'
+		Paused = 'paused',
 	}
 
 	let intervalId: number;
@@ -20,7 +20,7 @@
 	let timer = persist('timer', DEFAULT_DURATION);
 	let targetDate = persist<Date | null>('target-date', null, {
 		parse: (str) => new Date(Number.parseInt(str)) ?? null,
-		stringify: (date) => `${date ? +date : null}`
+		stringify: (date) => `${date ? +date : null}`,
 	});
 	let sound: Howl;
 
@@ -32,7 +32,7 @@
 		}
 
 		sound = new Howl({
-			src: ['alarm.wav']
+			src: ['alarm.wav'],
 		});
 	});
 
@@ -56,7 +56,11 @@
 	}
 
 	function updateTimer() {
-		$timer = differenceInSeconds($targetDate!, Date.now()) + 1;
+		if ($targetDate) {
+			$timer = differenceInSeconds($targetDate, Date.now()) + 1;
+		} else {
+			console.error('Tried to update timer while there was no date set.');
+		}
 	}
 
 	function getDisplayTime(remained: number) {
