@@ -10,7 +10,7 @@
 <button
 	class="button px-6 disabled:cursor-not-allowed disabled:hover:bg-primary"
 	class:animate-pulse={isLoading}
-	disabled={isLoading}
+	disabled={isLoading || isError || isSuccess}
 	{type}
 >
 	{#if isLoading}
