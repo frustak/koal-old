@@ -7,7 +7,9 @@
 
 	export let submitText: string;
 	export let onSubmit: OnSubmitAuth;
-	export let isSubmitting: boolean;
+	export let isLoading: boolean;
+	export let isError: boolean;
+	export let isSuccess: boolean;
 
 	let email: string;
 	let password: string;
@@ -41,5 +43,5 @@
 		/>
 	</label>
 
-	<Button type="submit" isLoading={isSubmitting}>{submitText}</Button>
+	<Button type="submit" {isLoading} {isError} {isSuccess}>{submitText}</Button>
 </form>

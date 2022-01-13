@@ -8,13 +8,15 @@
 		onSuccess: (data) => {
 			Cookies.set('token', data.token);
 			console.log(data);
-		}
+		},
 	});
 </script>
 
 <Auth
 	title="Sign in"
 	onSubmit={signIn}
-	isSubmitting={$signInStore.isSubmitting}
+	isLoading={$signInStore.isLoading}
+	isError={$signInStore.isRecentError}
+	isSuccess={$signInStore.isRecentSuccess}
 	link={{ label: 'Sign up', to: '/sign-up' }}
 />

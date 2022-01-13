@@ -5,17 +5,19 @@
 	import { mutation } from '$lib/stores/mutation';
 	import Cookies from 'js-cookie';
 
-	const { store: signUpStore, mutate: signUp } = mutation(service.signUp, {
+	const { store: signUpState, mutate: signUp } = mutation(service.signUp, {
 		onSuccess: (data) => {
 			Cookies.set('token', data.token);
 			goto('/');
-		}
+		},
 	});
 </script>
 
 <Auth
 	title="Sign up"
 	onSubmit={signUp}
-	isSubmitting={$signUpStore.isSubmitting}
+	isLoading={$signUpState.isLoading}
+	isError={$signUpState.isRecentError}
+	isSuccess={$signUpState.isRecentSuccess}
 	link={{ label: 'Sign in', to: '/sign-in' }}
 />
