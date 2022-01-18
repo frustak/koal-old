@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import service from '$lib/api/service';
 	import Auth from '$lib/containers/auth.svelte';
-	import { mutation } from '$lib/stores/mutation';
+	import { mutation } from '$lib/utils/mutation';
 	import Cookies from 'js-cookie';
 
 	const { store: signUpState, mutate: signUp } = mutation(service.signUp, {
