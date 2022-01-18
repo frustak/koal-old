@@ -1,4 +1,4 @@
-import { persist } from './persist';
+import { persist } from '$lib/utils/persist';
 
 export enum Theme {
 	Light = 'light',
