@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { DEFAULT_DURATION } from '$lib/stores/timer';
 	import { getDisplayTime } from '$lib/utils/display';
 	import { persist } from '$lib/utils/persist';
 
@@ -15,7 +16,7 @@
 		if (!newTask.trim()) return;
 		const task: Task = {
 			description: newTask,
-			remained: 1500,
+			remained: DEFAULT_DURATION,
 		};
 		$tasks = [...$tasks, task];
 		newTask = '';

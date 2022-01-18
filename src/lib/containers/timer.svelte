@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/env';
+	import { timer } from '$lib/stores/timer';
 	import { getDisplayTime } from '$lib/utils/display';
 	import { persist } from '$lib/utils/persist';
 	import { addSeconds, differenceInSeconds } from 'date-fns';
@@ -17,7 +18,6 @@
 
 	let intervalId: number;
 	let timerState = persist('timer-state', TimerState.NotStarted);
-	let timer = persist('timer', DEFAULT_DURATION);
 	let targetDate = persist<Date | null>('target-date', null, {
 		parse: (str) => new Date(Number.parseInt(str)) ?? null,
 		stringify: (date) => `${date ? +date : null}`,
