@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { persist } from '$lib/stores/persist';
+	import { getDisplayTime } from '$lib/utils/display';
+	import { persist } from '$lib/utils/persist';
 
 	interface Task {
 		description: string;
+		remained: number;
 	}
 
 	const tasks = persist<Task[]>('tasks', []);
@@ -11,7 +13,11 @@
 
 	function addTask() {
 		if (!newTask.trim()) return;
-		$tasks = [...$tasks, { description: newTask }];
+		const task: Task = {
+			description: newTask,
+			remained: 1500,
+		};
+		$tasks = [...$tasks, task];
 		newTask = '';
 	}
 
@@ -33,7 +39,12 @@
 				class:bg-opacity-10={selectedTask === index}
 				on:click={() => selectTask(index)}
 			>
-				<p>{task.description}</p>
+				<p>
+					<span class="rounded bg-primary text-background px-1 text-xs font-black">
+						{getDisplayTime(task.remained)}
+					</span>
+					<span>{task.description}</span>
+				</p>
 				<button
 					class="flex rounded button-icon text-background bg-primary hover:bg-background hover:text-primary"
 					on:click={() => removeTask(index)}
