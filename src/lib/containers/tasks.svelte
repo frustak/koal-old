@@ -59,10 +59,10 @@
 					<p>{task.description}</p>
 				</div>
 				<button
-					class="flex rounded button-icon text-background bg-primary hover:bg-background hover:text-primary"
+					class="flex rounded button-icon text-background bg-primary hover:bg-background hover:text-primary border border-primary"
 					on:click|stopPropagation={() => removeTask(index)}
 				>
-					<i class="flex p-1 bi bi-x-lg" />
+					<i class="flex p-0.5 bi bi-x-lg" />
 				</button>
 			</button>
 		{/each}
