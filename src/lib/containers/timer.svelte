@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-	import { persist } from '$lib/stores/persist';
+	import { getDisplayTime } from '$lib/utils/display';
+	import { persist } from '$lib/utils/persist';
 	import { addSeconds, differenceInSeconds } from 'date-fns';
 	import { Howl } from 'howler';
-	import _ from 'lodash';
 	import { onMount } from 'svelte';
 	import * as workerTimers from 'worker-timers';
 
@@ -61,15 +61,6 @@
 		} else {
 			console.error('Tried to update timer while there was no date set.');
 		}
-	}
-
-	function getDisplayTime(remained: number) {
-		const minutesStr = Math.floor(remained / 60).toString();
-		const minutesPadded = _.padStart(minutesStr, 2, '0');
-		const secondsStr = Math.floor(remained % 60).toString();
-		const secondsPadded = _.padStart(secondsStr, 2, '0');
-		const text = `${minutesPadded}:${secondsPadded}`;
-		return text;
 	}
 
 	function completeTimer() {
