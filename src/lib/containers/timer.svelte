@@ -4,7 +4,6 @@
 	import { getDisplayTime } from '$lib/utils/display';
 	import { persist } from '$lib/utils/persist';
 	import { addSeconds, differenceInSeconds } from 'date-fns';
-	import { Howl } from 'howler';
 	import { onMount } from 'svelte';
 	import * as workerTimers from 'worker-timers';
 
@@ -22,7 +21,6 @@
 		parse: (str) => new Date(Number.parseInt(str)) ?? null,
 		stringify: (date) => `${date ? +date : null}`,
 	});
-	let sound: Howl;
 
 	onMount(() => {
 		if (Notification.permission !== 'denied') Notification.requestPermission();
@@ -30,14 +28,12 @@
 			updateTimer();
 			startTimer();
 		}
-
-		sound = new Howl({
-			src: ['alarm.wav'],
-		});
 	});
 
 	$: if (browser && $timer <= 0) completeTimer();
-	$: if (browser && $timerState !== TimerState.Running) workerTimers.clearInterval(intervalId);
+	$: if (browser && $timerState !== TimerState.Running && intervalId) {
+		workerTimers.clearInterval(intervalId);
+	}
 
 	function startTimer() {
 		$targetDate = addSeconds(Date.now(), $timer);
@@ -66,7 +62,6 @@
 	function completeTimer() {
 		new Notification('Times up!');
 		resetTimer();
-		sound.play();
 	}
 </script>
 
