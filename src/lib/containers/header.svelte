@@ -3,7 +3,7 @@
 	import { user } from '$lib/stores/user';
 	import { derived } from 'svelte/store';
 
-	const profileLink = derived([user], (user) => {
+	const profileLink = derived([user], ([user]) => {
 		return user ? '/profile' : '/sign-in';
 	});
 </script>
