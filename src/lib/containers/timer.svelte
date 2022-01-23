@@ -72,9 +72,7 @@
 
 	<div class="grid self-stretch grid-cols-2 gap-x-6">
 		{#if $timerState === TimerState.NotStarted}
-			<div class="flex col-span-2">
-				<button class="button" on:click={startTimer}>Start</button>
-			</div>
+			<button class="button col-span-2" on:click={startTimer}>Start</button>
 		{:else}
 			<button class="button" on:click={resetTimer}>Reset</button>
 			{#if $timerState === TimerState.Paused}
