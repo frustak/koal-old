@@ -1,8 +1,12 @@
 <script lang="ts">
 	import Header from '$lib/containers/header.svelte';
+	import { onMountApp } from '$lib/logic/mount';
 	import { getThemeBg, theme } from '$lib/stores/theme';
 	import 'bootstrap-icons/font/bootstrap-icons.css';
+	import { onMount } from 'svelte';
 	import '../app.css';
+
+	onMount(onMountApp);
 </script>
 
 <svelte:head>
