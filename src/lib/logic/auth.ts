@@ -8,3 +8,9 @@ export function onAuthSuccess(data: AuthData): void {
 	Cookies.set('token', data.token);
 	goto('/');
 }
+
+export function signOut(): void {
+	user.set(null);
+	Cookies.remove('token');
+	goto('/');
+}
