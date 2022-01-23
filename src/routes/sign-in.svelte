@@ -1,14 +1,11 @@
 <script lang="ts">
 	import service from '$lib/api/service';
 	import Auth from '$lib/containers/auth.svelte';
+	import { onAuthSuccess } from '$lib/logic/auth';
 	import { mutation } from '$lib/utils/mutation';
-	import Cookies from 'js-cookie';
 
 	const { store: signInStore, mutate: signIn } = mutation(service.signIn, {
-		onSuccess: (data) => {
-			Cookies.set('token', data.token);
-			console.log(data);
-		},
+		onSuccess: onAuthSuccess,
 	});
 </script>
 

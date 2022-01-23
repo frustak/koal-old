@@ -1,15 +1,11 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import service from '$lib/api/service';
 	import Auth from '$lib/containers/auth.svelte';
+	import { onAuthSuccess } from '$lib/logic/auth';
 	import { mutation } from '$lib/utils/mutation';
-	import Cookies from 'js-cookie';
 
 	const { store: signUpState, mutate: signUp } = mutation(service.signUp, {
-		onSuccess: (data) => {
-			Cookies.set('token', data.token);
-			goto('/');
-		},
+		onSuccess: onAuthSuccess,
 	});
 </script>
 
