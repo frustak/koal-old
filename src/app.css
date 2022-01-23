@@ -15,7 +15,7 @@
 	}
 
 	.button {
-		@apply relative flex-grow flex-shrink-0 px-2 py-2 font-semibold rounded bg-primary/90 text-background/90 hover:bg-primary hover:text-background focus:bg-primary focus:text-background;
+		@apply relative flex-shrink-0 px-2 py-2 font-semibold rounded bg-primary/90 text-background/90 hover:bg-primary hover:text-background focus:bg-primary focus:text-background;
 	}
 
 	.button::before {
