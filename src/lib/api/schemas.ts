@@ -6,3 +6,9 @@ export interface AuthPayload {
 export interface AuthData {
 	token: string;
 }
+
+export interface ApiError {
+	code: number;
+	message: string;
+	details: unknown[];
+}
