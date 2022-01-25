@@ -1,3 +1,4 @@
+import type { ApiError } from '$lib/api/schemas';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 
@@ -20,13 +21,14 @@ interface Mutation<D, P, E> {
 	mutate: (payload: P) => Promise<void>;
 }
 
-interface Options<D> {
-	onSuccess: (data: D) => void;
+interface Options<D, E> {
+	onSuccess?: (data: D) => void;
+	onError?: (error: E) => void;
 }
 
-export function mutation<D, P, E = unknown>(
-	callback: Mutate<D, P>,
-	options?: Options<D>,
+export function mutation<D, P, E = ApiError>(
+	service: Mutate<D, P>,
+	options?: Options<D, E>,
 ): Mutation<D, P, E> {
 	const store = writable<Query<D, E>>({
 		data: null,
@@ -41,10 +43,11 @@ export function mutation<D, P, E = unknown>(
 	const mutate = async (payload: P) => {
 		store.update((prev) => ({ ...prev, isLoading: true }));
 		try {
-			const data = await callback(payload);
-			handleSuccess<D, E>(store, data, options);
+			const successData = await service(payload);
+			handleSuccess<D, E>(store, successData, options);
 		} catch (error) {
-			handleError<D, E>(store, error);
+			const errorData = await parseError(error);
+			handleError<D, E>(store, errorData as E, options);
 		}
 	};
 
@@ -56,10 +59,10 @@ export function mutation<D, P, E = unknown>(
 
 function handleSuccess<D, E = unknown>(
 	store: Writable<Query<D, E>>,
-	data: Awaited<D>,
-	options?: Options<D>,
+	data: D,
+	options?: Options<D, E>,
 ) {
-	options?.onSuccess(data);
+	options?.onSuccess?.(data);
 	store.update((prev) => ({
 		...prev,
 		data,
@@ -76,7 +79,12 @@ function handleSuccess<D, E = unknown>(
 	}, 1000);
 }
 
-function handleError<D, E = unknown>(store: Writable<Query<D, E>>, error: E) {
+function handleError<D, E = unknown>(
+	store: Writable<Query<D, E>>,
+	error: E,
+	options?: Options<D, E>,
+) {
+	options?.onError?.(error);
 	store.update((prev) => ({
 		...prev,
 		data: null,
@@ -91,4 +99,8 @@ function handleError<D, E = unknown>(store: Writable<Query<D, E>>, error: E) {
 	setTimeout(() => {
 		store.update((prev) => ({ ...prev, isRecentError: false }));
 	}, 1000);
+}
+
+function parseError<E extends { response: Response }>(error: E) {
+	return error.response.json();
 }
