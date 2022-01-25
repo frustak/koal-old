@@ -2,9 +2,6 @@ const themeSwapper = require('tailwindcss-theme-swapper');
 
 const config = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-
-	darkMode: 'class',
-
 	theme: {
 		fontFamily: {
 			sans: ['Quicksand', 'sans-serif'],
@@ -29,16 +26,18 @@ const config = {
 						colors: {
 							primary: '#44403c',
 							background: '#fafaf9',
+							error: '#dc2626',
 						},
 					},
 				},
 				{
-					name: 'dark',
-					selectors: ['.dark'],
+					name: 'gruvbox-light',
+					selectors: ['.gruvbox-light'],
 					theme: {
 						colors: {
-							primary: '#fafaf9',
-							background: '#44403c',
+							primary: '#3c3836',
+							background: '#fbf1c7',
+							error: '#cc241d',
 						},
 					},
 				},
@@ -49,6 +48,7 @@ const config = {
 						colors: {
 							primary: '#ebdbb2',
 							background: '#282828',
+							error: '#fb4b37',
 						},
 					},
 				},
@@ -59,6 +59,7 @@ const config = {
 						colors: {
 							primary: '#e0aaff',
 							background: '#10002b',
+							error: '#ef4444',
 						},
 					},
 				},
@@ -69,6 +70,7 @@ const config = {
 						colors: {
 							primary: '#1d3557',
 							background: '#a8dadc',
+							error: '#991b1b',
 						},
 					},
 				},
@@ -79,6 +81,7 @@ const config = {
 						colors: {
 							primary: '#132a13',
 							background: '#ecf39e',
+							error: '#b91c1c',
 						},
 					},
 				},

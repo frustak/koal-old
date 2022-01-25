@@ -2,7 +2,7 @@ import { persist } from '$lib/utils/persist';
 
 export enum Theme {
 	Light = 'light',
-	Dark = 'dark',
+	GruvboxLight = 'gruvbox-light',
 	Gruvbox = 'gruvbox',
 	Void = 'void',
 	Blue = 'blue',
@@ -15,8 +15,8 @@ export function changeTheme(): void {
 	theme.update((prevTheme) => {
 		switch (prevTheme) {
 			case Theme.Light:
-				return Theme.Dark;
-			case Theme.Dark:
+				return Theme.GruvboxLight;
+			case Theme.GruvboxLight:
 				return Theme.Gruvbox;
 			case Theme.Gruvbox:
 				return Theme.Void;
@@ -36,7 +36,7 @@ export function getThemeBg(theme: Theme): string {
 	switch (theme) {
 		case Theme.Light:
 			return '#fafaf9';
-		case Theme.Dark:
+		case Theme.GruvboxLight:
 			return '#44403c';
 		case Theme.Gruvbox:
 			return '#282828';
