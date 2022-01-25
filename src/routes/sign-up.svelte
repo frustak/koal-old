@@ -14,6 +14,7 @@
 	onSubmit={signUp}
 	isLoading={$signUpState.isLoading}
 	isError={$signUpState.isRecentError}
+	error={$signUpState.error}
 	isSuccess={$signUpState.isRecentSuccess}
 	link={{ label: 'Sign in', to: '/sign-in' }}
 />

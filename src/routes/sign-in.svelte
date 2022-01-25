@@ -4,7 +4,7 @@
 	import { onAuthSuccess } from '$lib/logic/auth';
 	import { mutation } from '$lib/utils/mutation';
 
-	const { store: signInStore, mutate: signIn } = mutation(service.signIn, {
+	const { store: signInState, mutate: signIn } = mutation(service.signIn, {
 		onSuccess: onAuthSuccess,
 	});
 </script>
@@ -12,8 +12,9 @@
 <Auth
 	title="Sign in"
 	onSubmit={signIn}
-	isLoading={$signInStore.isLoading}
-	isError={$signInStore.isRecentError}
-	isSuccess={$signInStore.isRecentSuccess}
+	isLoading={$signInState.isLoading}
+	isError={$signInState.isRecentError}
+	error={$signInState.error}
+	isSuccess={$signInState.isRecentSuccess}
 	link={{ label: 'Sign up', to: '/sign-up' }}
 />

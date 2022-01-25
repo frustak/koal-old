@@ -3,12 +3,14 @@
 </script>
 
 <script lang="ts">
+	import type { ApiError } from '$lib/api/schemas';
 	import Button from '$lib/components/button.svelte';
 
 	export let submitText: string;
 	export let onSubmit: OnSubmitAuth;
 	export let isLoading: boolean;
 	export let isError: boolean;
+	export let error: ApiError | null;
 	export let isSuccess: boolean;
 
 	let email: string;
@@ -43,5 +45,12 @@
 		/>
 	</label>
 
-	<Button type="submit" {isLoading} {isError} {isSuccess}>{submitText}</Button>
+	<div class="flex flex-col gap-4">
+		<Button type="submit" {isLoading} {isError} {isSuccess}>{submitText}</Button>
+		{#if error}
+			<p class="text-xs text-error bg-background max-w-fit px-1 rounded-full font-black">
+				{error.message}
+			</p>
+		{/if}
+	</div>
 </form>
