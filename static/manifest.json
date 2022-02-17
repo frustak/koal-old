@@ -1,13 +1,13 @@
 {
 	"background_color": "#fafaf9",
-	"categories": ["planning", "focus", "time management", "pomodoro"],
+	"categories": ["planning"],
 	"short_name": "koal",
 	"name": "Koal",
-	"description": "Koal focus and time management",
+	"description": "Koal planning",
 	"start_url": "/",
 	"icons": [
 		{
-			"src": "logo.jpg",
+			"src": "favicon.png",
 			"type": "image/png",
 			"sizes": "512x512"
 		}
@@ -21,7 +21,7 @@
 			"short_name": "Koal",
 			"description": "Koal focus and time management",
 			"url": "/",
-			"icons": [{ "src": "/icons/logo_192.png", "sizes": "192x192" }]
+			"icons": [{ "src": "favicon.png", "sizes": "192x192" }]
 		}
 	]
 }
