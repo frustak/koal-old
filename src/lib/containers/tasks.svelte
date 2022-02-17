@@ -1,72 +1,43 @@
 <script lang="ts">
-	import { timer } from '$lib/stores/timer';
-	import { getDisplayTime } from '$lib/utils/display';
-	import { persist } from '$lib/utils/persist';
+	import Field from '$lib/components/field.svelte';
 
 	interface Task {
-		description: string;
-		spentTime: number;
+		title: string;
 	}
 
-	const tasks = persist<Task[]>('tasks', []);
+	let tasks: Task[] = [];
 	let newTask = '';
-	let selectedTaskIndex = persist<number | null>('selected-task-index', null);
-
-	timer.subscribe(() => {
-		if ($selectedTaskIndex !== null) {
-			$tasks[$selectedTaskIndex].spentTime += 1;
-		}
-	});
 
 	function addTask() {
 		if (!newTask.trim()) return;
-		const task: Task = {
-			description: newTask,
-			spentTime: 0,
-		};
-		$tasks = [...$tasks, task];
+		const task: Task = { title: newTask };
+		tasks = [...tasks, task];
 		newTask = '';
 	}
 
 	function removeTask(index: number) {
-		if ($selectedTaskIndex === index) $selectedTaskIndex = null;
-		$tasks = $tasks.filter((_, i) => i !== index);
-	}
-
-	function selectTask(index: number) {
-		if ($selectedTaskIndex === index) {
-			$selectedTaskIndex = null;
-			return;
-		}
-		$selectedTaskIndex = index;
+		tasks = tasks.filter((_, i) => i !== index);
 	}
 </script>
 
 <section class="space-y-4">
 	<div class="space-y-3 leading-10">
-		{#each $tasks as task, index}
-			<button
-				class="flex items-center justify-between w-full px-2 text-left bg-opacity-0 border-2 rounded outline-none cursor-pointer border-primary/75 bg-primary gap-x-4 hover:border-primary"
-				class:bg-opacity-10={$selectedTaskIndex === index}
-				on:click={() => selectTask(index)}
+		{#each tasks as task, index}
+			<div
+				class="flex items-center justify-between w-full px-2 text-left bg-opacity-0 border-2  outline-none border-primary/75 bg-primary gap-x-4"
 			>
-				<div class="flex items-center gap-x-2">
-					<span class="px-1 font-mono text-xs font-black rounded bg-primary text-background">
-						{getDisplayTime(task.spentTime)}
-					</span>
-					<p>{task.description}</p>
-				</div>
+				<p>{task.title}</p>
 				<button
-					class="flex border rounded button-icon text-background bg-primary hover:bg-background hover:text-primary border-primary"
+					class="flex border text-background bg-primary hover:bg-background hover:text-primary border-primary"
 					on:click|stopPropagation={() => removeTask(index)}
 				>
 					<i class="flex p-0.5 bi bi-x-lg" />
 				</button>
-			</button>
+			</div>
 		{/each}
 	</div>
 
 	<form on:submit|preventDefault={addTask}>
-		<input type="text" class="input" bind:value={newTask} />
+		<Field label="New task" name="todo" type="text" bind:value={newTask} />
 	</form>
 </section>
