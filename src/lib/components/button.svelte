@@ -1,7 +1,7 @@
 <script lang="ts">
 	type Type = 'button' | 'submit' | 'reset' | 'menu';
 
-	let className: string = '';
+	let className = '';
 	export { className as class };
 	export let type: Type = 'button';
 	export let isLoading = false;

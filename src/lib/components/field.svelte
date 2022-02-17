@@ -3,10 +3,10 @@
 
 	export let label: string;
 	export let type: Type = 'text';
-	export let placeholder: string = '';
+	export let placeholder = '';
 	export let name: string;
-	export let required: boolean = false;
-	export let value: string = '';
+	export let required = false;
+	export let value = '';
 	export let minlength: number | undefined = undefined;
 </script>
 
