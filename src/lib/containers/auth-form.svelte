@@ -5,6 +5,8 @@
 <script lang="ts">
 	import type { ApiError } from '$lib/api/schemas';
 	import Button from '$lib/components/button.svelte';
+	import ErrorMessage from '$lib/components/error-message.svelte';
+	import Field from '$lib/components/field.svelte';
 
 	export let submitText: string;
 	export let onSubmit: OnSubmitAuth;
@@ -18,39 +20,31 @@
 </script>
 
 <form
-	class="flex flex-col gap-y-10 bg-primary/5 py-12 px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14 2xl:px-16 rounded-2xl"
+	class="flex flex-col rounded-2xl gap-y-6"
 	on:submit|preventDefault={() => onSubmit({ email, password })}
 >
-	<label class="label">
-		Email
-		<input
-			placeholder="example@mail.com"
-			type="email"
-			name="email"
-			class="input"
-			required
-			bind:value={email}
-		/>
-	</label>
-	<label class="label">
-		Password
-		<input
-			placeholder="at least 8 characters"
-			type="password"
-			class="input"
-			name="password"
-			required
-			minlength={8}
-			bind:value={password}
-		/>
-	</label>
+	<Field
+		label="Email"
+		placeholder="example@email.com"
+		type="email"
+		name="email"
+		required
+		bind:value={email}
+	/>
+	<Field
+		label="Password"
+		placeholder="at least 8 characters"
+		type="password"
+		name="password"
+		required
+		minlength={8}
+		bind:value={password}
+	/>
 
 	<div class="flex flex-col gap-4">
 		<Button type="submit" {isLoading} {isError} {isSuccess}>{submitText}</Button>
 		{#if error}
-			<p class="text-xs text-error bg-background max-w-fit px-1 rounded-full font-black">
-				{error.message}
-			</p>
+			<ErrorMessage>{error.message}</ErrorMessage>
 		{/if}
 	</div>
 </form>
