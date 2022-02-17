@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ApiError } from '$lib/api/schemas';
+	import Link from '$lib/components/link.svelte';
 	import AuthForm, { OnSubmitAuth } from '$lib/containers/auth-form.svelte';
 
 	export let title: string;
@@ -15,5 +16,5 @@
 	<h2 class="font-bold text-3xl">{title}</h2>
 	<AuthForm submitText={title} {onSubmit} {isLoading} {isError} {isSuccess} {error} />
 
-	<a href={link.to} class="link self-end">{link.label}</a>
+	<Link to={link.to}>{link.label}</Link>
 </main>

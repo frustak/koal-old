@@ -46,7 +46,7 @@ export function mutation<D, P, E = ApiError>(
 			const successData = await service(payload);
 			handleSuccess<D, E>(store, successData, options);
 		} catch (error) {
-			const errorData = await parseError(error);
+			const errorData = await parseError(error as WithResponse);
 			handleError<D, E>(store, errorData as E, options);
 		}
 	};
@@ -101,6 +101,10 @@ function handleError<D, E = unknown>(
 	}, 1000);
 }
 
-function parseError<E extends { response: Response }>(error: E) {
+function parseError<E extends WithResponse>(error: E) {
 	return error.response.json();
+}
+
+interface WithResponse {
+	response: Response;
 }
