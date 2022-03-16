@@ -10,6 +10,10 @@ export const routes = [
 		component: lazy(() => import("@pages/login")),
 	},
 	{
+		path: "/profile",
+		component: lazy(() => import("@pages/profile")),
+	},
+	{
 		path: "/",
 		component: lazy(() => import("@pages/home")),
 	},
