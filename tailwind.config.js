@@ -12,6 +12,7 @@ module.exports = {
 			primary: "#333333",
 			secondary: "#fefefe",
 			muted: "#767676",
+			negative: "#e63946",
 		},
 		extend: {},
 	},
