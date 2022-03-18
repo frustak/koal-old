@@ -1,13 +1,33 @@
 import { AuthForm } from "@features/account"
+import api from "@features/api"
 import { Header, Layout } from "@features/app"
+import { createMutation } from "@features/query"
 import { Link } from "@features/ui/link"
+import Cookies from "js-cookie"
+import { useNavigate } from "solid-app-router"
 import { Component } from "solid-js"
 
 const Login: Component = () => {
+	const navigate = useNavigate()
+
+	const mutation = createMutation(api.login, {
+		onSuccess: (data) => {
+			Cookies.set("token", data.token)
+			navigate("/")
+		},
+	})
+
 	return (
 		<Layout>
 			<Header />
-			<AuthForm title="Sign in" submitText="Login" subtitle={<RegisterLink />} />
+			<AuthForm
+				title="Sign in"
+				submitText="Login"
+				subtitle={<RegisterLink />}
+				onSubmit={mutation.mutate}
+				isLoading={mutation.isLoading()}
+				error={mutation.error()?.message}
+			/>
 		</Layout>
 	)
 }
