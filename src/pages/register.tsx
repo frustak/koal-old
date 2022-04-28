@@ -1,6 +1,6 @@
 import { AuthForm } from "@features/account"
 import api from "@features/api"
-import { Header, Layout } from "@features/app"
+import { Header } from "@features/app"
 import { createMutation } from "@features/query"
 import Cookies from "js-cookie"
 import { Link, useNavigate } from "solid-app-router"
@@ -12,12 +12,12 @@ const Register: Component = () => {
 	const mutation = createMutation(api.register, {
 		onSuccess: (data) => {
 			Cookies.set("token", data.token)
-			navigate("/")
+			navigate("/home")
 		},
 	})
 
 	return (
-		<Layout>
+		<div>
 			<Header />
 			<AuthForm
 				title="Sign up"
@@ -27,7 +27,7 @@ const Register: Component = () => {
 				isLoading={mutation.isLoading()}
 				error={mutation.error()?.message}
 			/>
-		</Layout>
+		</div>
 	)
 }
 

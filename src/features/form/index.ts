@@ -43,6 +43,7 @@ export function createForm<T extends Record<string, string>>({
 			errors,
 		} as Control<T>,
 		handleSubmit,
+		reset: () => setState(() => defaultValues),
 	}
 }
 

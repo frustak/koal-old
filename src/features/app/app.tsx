@@ -1,5 +1,6 @@
 import { Router, useRoutes } from "solid-app-router"
 import { Component } from "solid-js"
+import { Layout } from "./layout"
 import { routes } from "./routes"
 
 export const App: Component = () => {
@@ -7,7 +8,9 @@ export const App: Component = () => {
 
 	return (
 		<Router>
-			<Routes />
+			<Layout>
+				<Routes />
+			</Layout>
 		</Router>
 	)
 }

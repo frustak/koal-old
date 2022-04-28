@@ -11,7 +11,7 @@ interface BaseFieldProps extends ComponentProps<"input"> {
 
 const BaseField: Component<BaseFieldProps> = (props) => {
 	return (
-		<div class="flex flex-col">
+		<div class="flex flex-col w-full">
 			<label class="text-sm text-muted" for={props.label}>
 				{props.label}
 			</label>

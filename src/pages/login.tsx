@@ -1,6 +1,6 @@
 import { AuthForm } from "@features/account"
 import api from "@features/api"
-import { Header, Layout } from "@features/app"
+import { Header } from "@features/app"
 import { createMutation } from "@features/query"
 import { Link } from "@features/ui/link"
 import Cookies from "js-cookie"
@@ -13,12 +13,12 @@ const Login: Component = () => {
 	const mutation = createMutation(api.login, {
 		onSuccess: (data) => {
 			Cookies.set("token", data.token)
-			navigate("/")
+			navigate("/home")
 		},
 	})
 
 	return (
-		<Layout>
+		<div>
 			<Header />
 			<AuthForm
 				title="Sign in"
@@ -28,7 +28,7 @@ const Login: Component = () => {
 				isLoading={mutation.isLoading()}
 				error={mutation.error()?.message}
 			/>
-		</Layout>
+		</div>
 	)
 }
 

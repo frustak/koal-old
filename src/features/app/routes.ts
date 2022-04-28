@@ -14,8 +14,16 @@ export const routes = [
 		component: lazy(() => import("@pages/profile")),
 	},
 	{
-		path: "/",
+		path: "/projects/:id",
+		component: lazy(() => import("@pages/project")),
+	},
+	{
+		path: "/home",
 		component: lazy(() => import("@pages/home")),
+	},
+	{
+		path: "/",
+		component: lazy(() => import("@pages/landing")),
 	},
 	{
 		path: "/*",
