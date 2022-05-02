@@ -4,7 +4,6 @@ import { Loading } from "./loading"
 interface ButtonProps extends ComponentProps<"button"> {
 	isLoading?: boolean
 }
-
 export const Button: Component<ButtonProps> = (baseProps) => {
 	const props = mergeProps({ type: "button" }, baseProps)
 

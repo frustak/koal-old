@@ -3,7 +3,6 @@ import { Component, Match, mergeProps, Switch } from "solid-js"
 interface HeadingProps {
 	as?: "h1" | "h2"
 }
-
 export const Heading: Component<HeadingProps> = (baseProps) => {
 	const props = mergeProps({ as: "h1" }, baseProps)
 
