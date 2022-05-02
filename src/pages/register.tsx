@@ -6,9 +6,8 @@ import Cookies from "js-cookie"
 import { Link, useNavigate } from "solid-app-router"
 import { Component } from "solid-js"
 
-const Register: Component = () => {
+const RegisterPage: Component = () => {
 	const navigate = useNavigate()
-
 	const mutation = createMutation(api.register, {
 		onSuccess: (data) => {
 			Cookies.set("token", data.token)
@@ -21,8 +20,8 @@ const Register: Component = () => {
 			<Header />
 			<AuthForm
 				title="Sign up"
-				submitText="Register"
 				subtitle={<LoginLink />}
+				submitText="Register"
 				onSubmit={mutation.mutate}
 				isLoading={mutation.isLoading()}
 				error={mutation.error()?.message}
@@ -39,4 +38,4 @@ const LoginLink: Component = () => {
 	)
 }
 
-export default Register
+export default RegisterPage

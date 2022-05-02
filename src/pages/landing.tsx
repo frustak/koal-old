@@ -1,7 +1,7 @@
 import { Link } from "@features/ui"
 import { Component } from "solid-js"
 
-const Landing: Component = () => {
+const LandingPage: Component = () => {
 	return (
 		<div class="space-y-10 max-w-prose mx-auto">
 			<h1 class="text-6xl">Koal</h1>
@@ -22,4 +22,4 @@ const Landing: Component = () => {
 	)
 }
 
-export default Landing
+export default LandingPage

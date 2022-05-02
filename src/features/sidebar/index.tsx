@@ -1,20 +1,20 @@
-import api from "@features/api"
+import api, { Project } from "@features/api"
 import { createForm } from "@features/form"
-import { createMutation, createQuery } from "@features/query"
+import { createMutation } from "@features/query"
 import { Field, Heading, IconButton, Link, Loading, Title } from "@features/ui"
 import Cookies from "js-cookie"
 import jwtDecode from "jwt-decode"
-import { Component, createEffect, createSignal, For, Show } from "solid-js"
+import { Component, createEffect, createResource, createSignal, For, Show } from "solid-js"
 
-export const Projects: Component = () => {
+export const Sidebar: Component = () => {
 	let projectFieldRef!: HTMLInputElement
 	const [isCreatingProject, setIsCreatingProject] = createSignal(false)
 	const projectForm = createForm({ defaultValues: { name: "" } })
-	const getProjectsQuery = createQuery(api.getProjects)
+	const [getProjectsResponse, { refetch: refetchGetProjects }] = createResource(api.getProjects)
 	const createProjectMutation = createMutation(api.createProject, {
 		onSuccess: () => {
 			setIsCreatingProject(false)
-			getProjectsQuery.refetch()
+			refetchGetProjects()
 			projectForm.reset()
 		},
 	})
@@ -38,9 +38,7 @@ export const Projects: Component = () => {
 			<div class="space-y-3">
 				<div class="flex items-center justify-between">
 					<Title>Projects</Title>
-					<IconButton onClick={() => setIsCreatingProject(true)}>
-						<i class="bi bi-plus-square" />
-					</IconButton>
+					<IconButton icon="bi-plus-square" onClick={() => setIsCreatingProject(true)} />
 				</div>
 				<div class="space-y-3 text-lg">
 					<Show when={isCreatingProject()}>
@@ -55,24 +53,38 @@ export const Projects: Component = () => {
 								required
 							/>
 							<div class="flex gap-1">
-								<IconButton onClick={() => setIsCreatingProject(false)}>
-									<i class="bi bi-x-square" />
-								</IconButton>
-								<IconButton type="submit">
-									<i class="bi bi-check-square" />
-								</IconButton>
+								<IconButton
+									icon="bi-x-square"
+									onClick={() => setIsCreatingProject(false)}
+								/>
+								<IconButton icon="bi-check-square" type="submit" />
 							</div>
 						</form>
 					</Show>
-					<For each={getProjectsQuery.data()?.projects} fallback={<Loading />}>
-						{(project) => (
-							<p>
-								<Link href={`/projects/${project.id}`}>{project.name}</Link>
-							</p>
-						)}
-					</For>
+					<Projects
+						projects={getProjectsResponse()?.data.projects}
+						loading={getProjectsResponse.loading}
+					/>
 				</div>
 			</div>
 		</div>
+	)
+}
+
+interface ProjectsProps {
+	projects?: Project[]
+	loading: boolean
+}
+const Projects: Component<ProjectsProps> = (props) => {
+	return (
+		<Show when={!props.loading} fallback={<Loading />}>
+			<For each={props.projects} fallback={<div>No item…</div>}>
+				{(project) => (
+					<p>
+						<Link href={`/projects/${project.id}`}>{project.name}</Link>
+					</p>
+				)}
+			</For>
+		</Show>
 	)
 }

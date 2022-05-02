@@ -1,20 +1,18 @@
-import { Projects } from "@features/project"
-import { Button, Heading, Title } from "@features/ui"
+import { Logout } from "@features/account"
+import { Sidebar } from "@features/sidebar"
+import { Heading, Title } from "@features/ui"
 import Cookies from "js-cookie"
 import jwtDecode from "jwt-decode"
-import { useNavigate } from "solid-app-router"
 import { Component } from "solid-js"
 
-const Profile: Component = () => {
+const ProfilePage: Component = () => {
 	const token = Cookies.get("token")
 	const email = () => (token ? jwtDecode<{ sub: string }>(token).sub : null)
-	const navigate = useNavigate()
 
 	return (
 		<div>
 			<div class="flex gap-40">
-				<Projects />
-
+				<Sidebar />
 				<div class="space-y-7">
 					<Heading as="h2">Profile</Heading>
 					<div class="flex justify-between gap-48 items-center">
@@ -22,15 +20,7 @@ const Profile: Component = () => {
 							<Title>Email</Title>
 							<p>{email()}</p>
 						</div>
-						<Button
-							class="px-6"
-							onClick={() => {
-								navigate("/login")
-								Cookies.remove("token")
-							}}
-						>
-							Logout
-						</Button>
+						<Logout />
 					</div>
 				</div>
 			</div>
@@ -38,4 +28,4 @@ const Profile: Component = () => {
 	)
 }
 
-export default Profile
+export default ProfilePage

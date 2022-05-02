@@ -3,10 +3,12 @@ import { Button, ErrorMessage, Field, Heading, Title } from "@features/ui"
 import { Component, JSX } from "solid-js"
 import { z } from "zod"
 
-interface AuthFormValues {
-	email: string
-	password: string
-}
+const Schema = z.object({
+	email: z.string().email(),
+	password: z.string().min(8),
+})
+
+type AuthFormValues = z.infer<typeof Schema>
 
 interface AuthFormProps {
 	title: string
@@ -17,15 +19,10 @@ interface AuthFormProps {
 	error?: string
 }
 
-const schema = z.object({
-	email: z.string().email(),
-	password: z.string().min(8),
-})
-
 export const AuthForm: Component<AuthFormProps> = (props) => {
 	const form = createForm({
 		defaultValues: { email: "", password: "" },
-		schema,
+		schema: Schema,
 	})
 
 	return (

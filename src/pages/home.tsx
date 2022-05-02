@@ -1,78 +1,38 @@
-import api from "@features/api"
-import { createForm } from "@features/form"
-import { Projects } from "@features/project"
-import { createQuery } from "@features/query"
-import { Field, IconButton, Loading, Title } from "@features/ui"
-import { Component, createEffect, createSignal, For, Show } from "solid-js"
+import api, { UpdateTaskRequest } from "@features/api"
+import { createMutation } from "@features/query"
+import { Sidebar } from "@features/sidebar"
+import { TaskList } from "@features/task"
+import { Title } from "@features/ui"
+import { Component, createResource } from "solid-js"
 
-const Home: Component = () => {
-	let taskFieldRef!: HTMLInputElement
-	const [isCreatingTask, setIsCreatingTask] = createSignal(false)
-	const taskForm = createForm({ defaultValues: { title: "" } })
-	const getTasksQuery = createQuery(api.getTasks)
-	createEffect(() => {
-		if (isCreatingTask()) taskFieldRef.focus()
-	})
+const HomePage: Component = () => {
+	const [getTasksResponse, { refetch: refetchTasks }] = createResource(api.getTasks)
+	const tasks = () => getTasksResponse()?.data.items
+	const deleteTaskRequest = createMutation(api.deleteTask, { onSuccess: refetchTasks })
+	const updateTaskRequest = createMutation(
+		({ id, data }: { id: string; data: UpdateTaskRequest }) => api.updateTask(id, data),
+		{ onSuccess: refetchTasks }
+	)
+	const handleDeleteTask = (id: string) => deleteTaskRequest.mutate(id)
+	const handleCheckTask = (id: string) => updateTaskRequest.mutate({ id, data: { isDone: true } })
+	const handleUncheckTask = (id: string) =>
+		updateTaskRequest.mutate({ id, data: { isDone: false } })
 
 	return (
-		<div>
-			<div class="flex">
-				<Projects />
-
-				<div class="space-y-14 ml-40 max-w-md grow">
-					{/* <div class="space-y-2">
-						<div class="flex items-center justify-between">
-							<Title>Project</Title>
-							<i class="bi bi-x-square" />
-						</div>
-						<Heading as="h2">Work</Heading>
-					</div> */}
-					<div class="space-y-6">
-						<div class="flex items-center justify-between">
-							<Title>Tasks</Title>
-							<IconButton onClick={() => setIsCreatingTask(true)}>
-								<i class="bi bi-plus-square" />
-							</IconButton>
-						</div>
-						<Show when={isCreatingTask()}>
-							<form
-								class="flex gap-4 items-center"
-								onSubmit={taskForm.handleSubmit(() => null)}
-							>
-								<Field
-									control={taskForm.control}
-									name="title"
-									ref={taskFieldRef}
-									required
-								/>
-								<div class="flex gap-2">
-									<IconButton onClick={() => setIsCreatingTask(false)}>
-										<i class="bi bi-x-square" />
-									</IconButton>
-									<IconButton type="submit">
-										<i class="bi bi-check-square" />
-									</IconButton>
-								</div>
-							</form>
-						</Show>
-						<div class="space-y-8 text-lg">
-							<For each={getTasksQuery.data()?.items} fallback={<Loading />}>
-								{(item) => (
-									<div class="flex items-center justify-between">
-										<p class="line-through">{item.title}</p>
-										<div class="flex items-center gap-2 text-base">
-											<i class="bi bi-x-square" />
-											<i class="bi bi-check-square" />
-										</div>
-									</div>
-								)}
-							</For>
-						</div>
-					</div>
-				</div>
+		<div class="flex">
+			<Sidebar />
+			<div class="ml-40 max-w-md grow space-y-2">
+				<Title>Tasks</Title>
+				<TaskList
+					tasks={tasks()}
+					loading={getTasksResponse.loading}
+					handleDelete={handleDeleteTask}
+					handleCheck={handleCheckTask}
+					handleUncheck={handleUncheckTask}
+				/>
 			</div>
 		</div>
 	)
 }
 
-export default Home
+export default HomePage

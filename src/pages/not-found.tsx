@@ -1,7 +1,7 @@
 import { Link } from "@features/ui"
 import { Component } from "solid-js"
 
-const NotFound: Component = () => {
+const NotFoundPage: Component = () => {
 	return (
 		<main>
 			<h3 class="text-9xl my-10">
@@ -14,4 +14,4 @@ const NotFound: Component = () => {
 	)
 }
 
-export default NotFound
+export default NotFoundPage

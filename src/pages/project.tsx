@@ -1,69 +1,75 @@
 import api, { UpdateTaskRequest } from "@features/api"
 import { createForm } from "@features/form"
-import { Projects } from "@features/project"
-import { createMutation, createQuery } from "@features/query"
-import { Field, Heading, IconButton, Loading, Title } from "@features/ui"
+import { createMutation } from "@features/query"
+import { Sidebar } from "@features/sidebar"
+import { TaskList } from "@features/task"
+import { Field, Heading, IconButton, Title } from "@features/ui"
 import { useNavigate, useParams } from "solid-app-router"
-import { Component, createEffect, createResource, createSignal, For, Show } from "solid-js"
+import { Component, createEffect, createResource, createSignal, Show } from "solid-js"
 
 const Home: Component = () => {
 	let taskFieldRef!: HTMLInputElement
 	const params = useParams<{ id: string }>()
+	const navigate = useNavigate()
 	const projectId = () => params.id
-	const [project, { refetch: refetchProject }] = createResource(projectId, (id) =>
+	const [getProjectResponse, { refetch: refetchGetProject }] = createResource(projectId, (id) =>
 		api.getProject(id)
 	)
-	const getProjectsQuery = createQuery(api.getProjects)
 	const [isCreatingTask, setIsCreatingTask] = createSignal(false)
 	const taskForm = createForm({ defaultValues: { title: "" } })
 	const createTaskMutation = createMutation(api.createTask, {
 		onSuccess: () => {
 			setIsCreatingTask(false)
-			refetchProject()
+			refetchGetProject()
 			taskForm.reset()
 		},
 	})
-	const navigate = useNavigate()
 	const deleteProjectMutation = createMutation(api.deleteProject, {
 		onSuccess: () => {
-			getProjectsQuery.refetch()
+			refetchGetProject()
 			navigate("/home")
 		},
 	})
 	const deleteTaskMutation = createMutation(api.deleteTask, {
-		onSuccess: () => refetchProject(),
+		onSuccess: () => refetchGetProject(),
 	})
-	const updateTaskMutation = createMutation<UpdateTaskRequest>(
-		(data) => api.updateTask(projectId(), data),
-		{
-			onSuccess: () => refetchProject(),
-		}
+	const updateTaskMutation = createMutation<{ id: string; data: UpdateTaskRequest }>(
+		({ id, data }) => api.updateTask(id, data),
+		{ onSuccess: () => refetchGetProject() }
 	)
 	createEffect(() => {
 		if (isCreatingTask()) taskFieldRef.focus()
 	})
+	const tasks = () => getProjectResponse()?.data.items
+	const handleDeleteTask = (id: string) => deleteTaskMutation.mutate(id)
+	const handleCheckTask = (id: string) =>
+		updateTaskMutation.mutate({ id, data: { isDone: true } })
+	const handleUncheckTask = (id: string) =>
+		updateTaskMutation.mutate({ id, data: { isDone: false } })
 
 	return (
 		<div>
 			<div class="flex gap-40">
-				<Projects />
+				<Sidebar />
 
 				<div class="space-y-14 max-w-md grow">
 					<div class="space-y-2">
 						<div class="flex items-center justify-between">
 							<Title>Project</Title>
-							<IconButton onClick={() => deleteProjectMutation.mutate(projectId())}>
-								<i class="bi bi-x-square" />
-							</IconButton>
+							<IconButton
+								icon="bi-x-square"
+								onClick={() => deleteProjectMutation.mutate(projectId())}
+							/>
 						</div>
-						<Heading as="h2">{project()?.data.info.name}</Heading>
+						<Heading as="h2">{getProjectResponse()?.data.info.name}</Heading>
 					</div>
-					<div class="space-y-6">
+					<div class="space-y-2">
 						<div class="flex items-center justify-between">
 							<Title>Tasks</Title>
-							<IconButton onClick={() => setIsCreatingTask(true)}>
-								<i class="bi bi-plus-square" />
-							</IconButton>
+							<IconButton
+								icon="bi-plus-square"
+								onClick={() => setIsCreatingTask(true)}
+							/>
 						</div>
 						<Show when={isCreatingTask()}>
 							<form
@@ -82,42 +88,21 @@ const Home: Component = () => {
 									required
 								/>
 								<div class="flex gap-2">
-									<IconButton onClick={() => setIsCreatingTask(false)}>
-										<i class="bi bi-x-square" />
-									</IconButton>
-									<IconButton type="submit">
-										<i class="bi bi-check-square" />
-									</IconButton>
+									<IconButton
+										icon="bi-x-square"
+										onClick={() => setIsCreatingTask(false)}
+									/>
+									<IconButton icon="bi-check-square" type="submit" />
 								</div>
 							</form>
 						</Show>
-						<div class="space-y-8 text-lg">
-							<For each={project()?.data.items} fallback={<Loading />}>
-								{(item) => (
-									<div class="flex items-center justify-between">
-										<p classList={{ "line-through": item.isDone }}>
-											{item.title}
-										</p>
-										<div class="flex items-center gap-1">
-											<IconButton
-												onClick={() => deleteTaskMutation.mutate(item.id)}
-											>
-												<i class="bi bi-x-square" />
-											</IconButton>
-											<IconButton
-												onClick={() =>
-													updateTaskMutation.mutate({
-														isDone: !item.isDone,
-													})
-												}
-											>
-												<i class="bi bi-check-square" />
-											</IconButton>
-										</div>
-									</div>
-								)}
-							</For>
-						</div>
+						<TaskList
+							tasks={tasks()}
+							loading={getProjectResponse.loading}
+							handleDelete={handleDeleteTask}
+							handleCheck={handleCheckTask}
+							handleUncheck={handleUncheckTask}
+						/>
 					</div>
 				</div>
 			</div>
