@@ -24,7 +24,7 @@ export function createQuery<D = unknown, E = ErrorResponse>(
 			setError(undefined)
 			options?.onSuccess?.(response)
 		} catch (err) {
-			const error = err as AxiosError
+			const error = err as AxiosError<E>
 			setError(() => error?.response?.data)
 			if (error.response?.status === 401) navigate("/login")
 		}
@@ -62,7 +62,7 @@ export function createMutation<P = unknown, D = unknown, E = ErrorResponse>(
 			setError(undefined)
 			options?.onSuccess?.(response)
 		} catch (err) {
-			const error = err as AxiosError
+			const error = err as AxiosError<E>
 			setError(() => error?.response?.data)
 			if (error.response?.status === 401) navigate("/login")
 		}
