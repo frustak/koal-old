@@ -18,7 +18,6 @@ interface AuthFormProps {
 	isLoading: boolean
 	error?: string
 }
-
 export const AuthForm: Component<AuthFormProps> = (props) => {
 	const form = createForm({
 		defaultValues: { email: "", password: "" },

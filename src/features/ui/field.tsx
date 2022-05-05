@@ -2,13 +2,31 @@ import { Control } from "@features/form"
 import { Component, ComponentProps } from "solid-js"
 import { ErrorMessage } from "./error-message"
 
+interface FieldProps<T> extends ComponentProps<"input"> {
+	name: string
+	control: Control<T>
+	label?: string
+	type?: "text" | "email" | "password"
+}
+export function Field<T extends Record<string, string>>(props: FieldProps<T>) {
+	return (
+		<BaseField
+			fieldValue={props.control.signal[0]()[props.name]}
+			onFieldValueChange={(value) =>
+				props.control.signal[1]((prev) => ({ ...prev, [props.name]: value }))
+			}
+			error={props.control.errors()?.find((error) => error.path[0] === props.name)?.message}
+			{...props}
+		/>
+	)
+}
+
 interface BaseFieldProps extends ComponentProps<"input"> {
 	label?: string
 	fieldValue?: string
 	onFieldValueChange?: (value: string) => void
 	error?: string
 }
-
 const BaseField: Component<BaseFieldProps> = (props) => {
 	return (
 		<div class="flex flex-col w-full">
@@ -25,26 +43,5 @@ const BaseField: Component<BaseFieldProps> = (props) => {
 			/>
 			<ErrorMessage>{props.error}</ErrorMessage>
 		</div>
-	)
-}
-
-interface FieldProps extends ComponentProps<"input"> {
-	name: string
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	control: Control<any>
-	label?: string
-	type?: "text" | "email" | "password"
-}
-
-export const Field: Component<FieldProps> = (props) => {
-	return (
-		<BaseField
-			fieldValue={props.control.signal[0]()[props.name]}
-			onFieldValueChange={(value) =>
-				props.control.signal[1]((prev) => ({ ...prev, [props.name]: value }))
-			}
-			error={props.control.errors()?.find((error) => error.path[0] === props.name)?.message}
-			{...props}
-		/>
 	)
 }

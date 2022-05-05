@@ -3,7 +3,6 @@ import { Component, ComponentProps } from "solid-js"
 interface IconButtonProps extends ComponentProps<"button"> {
 	icon: string
 }
-
 export const IconButton: Component<IconButtonProps> = (props) => {
 	return (
 		<button
